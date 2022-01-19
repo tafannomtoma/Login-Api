@@ -1,0 +1,1 @@
+export const api = 'http://ticketapi.brotherhoodinfotech.com/api'

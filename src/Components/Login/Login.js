@@ -1,20 +1,49 @@
 import {  Button, Container, Grid, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
-// import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import axios from "../../Helpers/axios";
+
+
+import React, { useEffect, useState } from 'react';
+
+
+
 
 const Login = () => {
-    const [loginData, setLoginData] = useState({});
     
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const obj = { email, password }
     
-
-    const handleOnChange = e => {
-        const field = e.target.name;
-        const value = e.target.value;
-        const newLoginData = { ...loginData };
-        newLoginData[field] = value;
-        setLoginData(newLoginData);
+    const onSubmit = (e) => {
+        e.preventDefault();
+        axios.put(`/login/`, obj)
+            .then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
+        
     }
+
+    useEffect(() => {
+        axios.get(`/login/`)
+            .then(res => {
+                console.log(res.data)
+            })
+    },[])
+    
+
+    useEffect(() => {
+        if (localStorage.getItem('user-info')) {      
+        }
+            
+    }, [])
+
+ 
+    
+
+    
+
+    
     return (
         <Container style={{margin:"30px"}}>
             <Grid container spacing={2}>
@@ -31,7 +60,7 @@ const Login = () => {
                             id="standard-basic"
                             label="Your Email"
                             name="email"
-                            onChange={handleOnChange}
+                            onChange={(e) => setEmail(e.target.value)}
                             variant="standard" />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -39,11 +68,12 @@ const Login = () => {
                             label="Your Password"
                             type="password"
                             name="password"
-                            onChange={handleOnChange}
+                            onChange={(e) => setPassword(e.target.value)}
                             variant="standard" />
 
                         <Button
                             sx={{ width: '75%', m: 1, mt: 5 }} style={{ backgroundColor: '#5d9eba' }} type="submit"
+                            onClick={onSubmit}
                             variant="contained">Login</Button>
                         {/* <NavLink to="/register">
                             <Button

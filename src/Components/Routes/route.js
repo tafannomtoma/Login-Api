@@ -1,16 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
+import Home from '../Home/Home';
 import Services from '../Sevices/Services';
+import Users from '../Users/Users';
 
 const route = () => {
     return (
         <div>
-            <Router>
+            <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Services />} />
-                    
+                    <Route path="/" element={<Home/>}>
+                        <Route path="services" element={<Services />} />
+                        <Route path="users" element={<Users />} />
+                    </Route>
                 </Routes>
-            </Router>
+            </BrowserRouter>,
         </div>
     );
 };

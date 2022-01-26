@@ -128,9 +128,9 @@ const SideDrawer = () => {
                 </DrawerHeader>
                 <Divider />
                 <List >
-                    <Button><Link to="/services">Services</Link></Button> |{" "}
-                    <Link to="/expenses">Expenses</Link>
+                    <Button><Link to="/services">Services</Link></Button> 
                 </List>
+                <List><Button><Link to="/users">Users</Link></Button> </List>
                 <Divider />
                 
             </Drawer>

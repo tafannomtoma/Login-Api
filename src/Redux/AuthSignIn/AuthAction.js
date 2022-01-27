@@ -39,5 +39,50 @@ export const login = (user) => {
         }
     }
 }
+
+export const isUserLoggedIn = () => {
+    return async dispatch => {
+        const token = window.localStorage.getItem('token');
+        if (token) {
+            const message = window.localStorage.getItem('message');
+            const status = window.localStorage.getItem('status');
+            const success = window.localStorage.getItem('success');
+            const type = window.localStorage.getItem('type');
+            const userId = window.localStorage.getItem('userId');
+
+            dispatch({
+                type: authConstant.LOGIN_SUCCESS,
+                payload: {
+                    token, message, status, success, type, userId
+                }
+            });
+        }
+        else {
+            dispatch({
+                type: authConstant.LOGIN_FAILURE,
+                payload: { error: 'Failed to login' }
+            });
+        }
+    }
+}
+
+export const signOut = () => {
+    return async dispatch => {
+        dispatch({ type: authConstant.LOGOUT_REQUEST });
+        const token = window.localStorage.getItem('token');
+        if (token) {
+            window.localStorage.clear('token')
+            dispatch({ type: authConstant.LOGOUT_SUCCESS });
+            window.location.replace('/login')
+        }
+        else {
+            dispatch({
+                type: authConstant.LOGOUT_FAILURE,
+                payload:{ error:"you have to login first"}
+            })
+        }
+    }
+
+}
     
     
